@@ -1,0 +1,35 @@
+---
+const { serviceSectionData } = Astro.props;
+import { Image } from "astro:assets";
+
+const { otherClasses } = Astro.props;
+---
+
+<div
+  class={`mt-16 w-full border-l px-4 lg:w-150 flex flex-col text-center lg:text-start ${otherClasses}`}
+>
+  <Image
+    src={serviceSectionData.image}
+    alt={``}
+    class={`w-32 object-cover mb-4 opacity-75 self-center lg:self-start`}
+  />
+  <h2 class="text-2xl mb-4 text-[#ec825b]">{serviceSectionData.title}</h2>
+  <p class="mb-2">
+    <span class="font-bold">Objectif : </span>
+    <span> {serviceSectionData.goal}</span>
+  </p>
+  <p class="mb-2">
+    <strong>Pour qui ? </strong>{serviceSectionData.target}
+  </p>
+  <p class="mb-4">
+    {serviceSectionData.paragraph}
+  </p>
+  <p class="mb-2"><strong>Ce que cela inclut :</strong></p>
+  <ul class="w-[90%] self-center lg:self-start lg:w-full lg:ml-8 list-disc">
+    {
+      serviceSectionData.list.map((data: string) => {
+        return <li>{data}</li>;
+      })
+    }
+  </ul>
+</div>

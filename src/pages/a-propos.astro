@@ -1,0 +1,74 @@
+---
+import Layout from "../layouts/Layout.astro";
+import image from "../assets/flavie.jpg";
+import image2 from "../assets/about_2.jpg";
+import LeadSection from "../components/LeadSection.astro";
+import AboutSection from "../components/AboutSection.astro";
+import ContactCTA from "../components/ContactCTA.astro";
+
+const leadSectionObjectData = {
+  image: image,
+  href: "/services",
+  label: "Voir mes prestations",
+  title:
+    "Flavie Liège : Stratège en communication, architecte de vos événements.",
+  paragraphs: [
+    `Passionnée depuis toujours par l'énergie du sport et la puissance des événements qui rassemblent, j'ai construit mon parcours à l'intersection de ces deux univers. De mes études en Management du Sport à Poitiers jusqu'au pilotage de la communication pour l'un des plus grands événements nautiques au monde, chaque étape a renforcé ma conviction : un projet réussi est un projet qui raconte une histoire mémorable. Aujourd'hui, en tant que communicante indépendante, je mets cette expertise au service de votre vision pour la rendre rayonnante.`,
+  ],
+};
+
+const aboutSectionData = [
+  {
+    title: `1. Les Fondations : La passion devient une expertise (2015 - 2021)`,
+    paragraph: `Mon aventure a commencé sur les bancs de l'Université de Poitiers, avec une Licence puis un Master en Management du Sport. Bien plus qu'un simple diplôme, ce fut le socle qui m'a permis de comprendre les rouages de l'organisation, de la gestion et de la promotion dans le secteur sportif. J'ai rapidement mis la théorie en pratique, que ce soit en gérant la communication d'un colloque universitaire ou en contribuant à l'organisation du Raid Aventure de Grand Châtellerault lors de mon premier stage marquant.`,
+  },
+  {
+    title: `2. La Montée en Puissance : L'épreuve du terrain en Normandie (2021 - 2022)`,
+    paragraph: `Mon arrivée à Cherbourg a marqué un tournant. En tant qu'Assistante de Direction Événementiel pour les Championnats d'Europe d'Ocean Racing, j'ai été plongée au cœur d'un événement international. De la stratégie de communication à la création de tous les supports visuels, en passant par la gestion du sponsoring et des relations avec les athlètes, j'ai appris à jongler avec toutes les facettes d'un projet d'envergure. Cette expérience a été complétée par mon poste de Community Manager au Club de Kayak, où j'ai pu affiner mes compétences en création de contenu et en gestion de communauté.`,
+  },
+  {
+    title: `3. Le Projet Phare : La consécration avec la Rolex Fastnet Race (2022 - 2023)`,
+    paragraph: `Le point d'orgue de mon parcours fut de prendre en charge la communication 360° pour l'arrivée de la mythique Rolex Fastnet Race. J'y ai orchestré toute la stratégie médiatique et piloté l'organisation du village événementiel durant 10 jours, en lien direct avec des partenaires d'envergure. Cette mission intense et prestigieuse a confirmé ma capacité à gérer des projets d'une ampleur internationale, de la conception à la réalisation.`,
+  },
+];
+
+const leadSectionObjectEfelComData = {
+  title: `Aujourd'hui : EFEL COMMUNICATION, mon aventure en solo`,
+  href: "/contact",
+  label: "Contactez-moi",
+  image: image2,
+  paragraphs: [
+    `C'est avec ce bagage complet que j'ai décidé de tracer ma propre route en fondant EFEL COMMUNICATION. Cette aventure en solo est la promesse d'une relation directe, d'une réactivité sans faille et d'une implication totale dans la réussite de vos projets. Je mets aujourd'hui toute mon énergie au service des entrepreneurs, des marques et des organisations qui souhaitent faire la différence.`,
+  ],
+};
+
+const contactCTAData = {
+  href: "/contact",
+  label: "Contactez-moi",
+  title: `Et si on construisait votre succès ensemble ?`,
+  sentence: `Une idée qui germe, un projet qui prend forme ou une communication à redynamiser ? Chaque grande réussite commence par une simple conversation. Je suis curieuse de découvrir votre histoire et de voir comment mon expertise peut vous aider à atteindre vos ambitions.`,
+};
+---
+
+<Layout>
+  <LeadSection leadSectionObject={leadSectionObjectData} />
+  <section class="w-full flex flex-col items-center py-16">
+    <h2 class="text-2xl lg:text-4xl pb-16 text-center paragraph">
+      Mon Parcours : De la théorie à la pratique
+    </h2>
+    <div class="flex flex-col gap-8 lg:flex-row w-full justify-center">
+      {
+        aboutSectionData.map((data) => {
+          return <AboutSection title={data.title} paragraph={data.paragraph} />;
+        })
+      }
+    </div>
+  </section>
+  <LeadSection leadSectionObject={leadSectionObjectEfelComData} />
+  <ContactCTA
+    title={contactCTAData.title}
+    sentence={contactCTAData.sentence}
+    label={contactCTAData.label}
+    href={contactCTAData.href}
+  />
+</Layout>

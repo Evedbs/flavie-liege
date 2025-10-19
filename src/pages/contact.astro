@@ -1,0 +1,216 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <section class="w-screen lg:h-screen flex flex-col lg:flex-row">
+    <div class="w-full lg:w-1/2 lg:h-full flex flex-col">
+      <h1
+        class="self-center mb-4 lg:absolute lg:left-[50vw] lg:translate-x-[-50%] text-4xl pt-8"
+      >
+        Contactez-moi
+      </h1>
+      <div
+        class="w-full lg:h-full flex flex-col justify-center items-center lg:items-end text-center lg:text-end lg:mt-[50vh] lg:translate-y-[-50%] px-8"
+      >
+        <h2 class="text-2xl paragraph mb-4">
+          Un projet à l'horizon ? Parlons-en.
+        </h2>
+        <p class="paragraph">
+          Que vous ayez une idée précise, un besoin de conseil ou simplement
+          l'envie d'échanger sur vos défis de communication, je suis à votre
+          écoute. Chaque projet est une nouvelle aventure, et je serais ravie de
+          tracer la prochaine route avec vous.
+        </p>
+        <p class="paragraph pt-4">
+          Remplissez ce formulaire pour toute demande d'information ou de devis,
+          je vous répondrai dans les plus brefs délais.
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="w-full lg:w-1/2 lg:h-full flex flex-col justify-center items-center"
+    >
+      <form
+        id="contact-form"
+        action="URL_POUR_TRAITER_LE_FORMULAIRE"
+        method="POST"
+        class="w-full flex flex-col gap-4 px-8 py-16 lg:py-0"
+        novalidate
+      >
+        <div class="flex flex-col lg:flex-row lg:w-[80%] gap-4">
+          <div class="w-full">
+            <label for="firstname">Prénom</label>
+            <input
+              type="text"
+              name="firstname"
+              id="firstname"
+              placeholder="Jane"
+              required
+              class="w-full"
+            />
+            <span id="firstname-error" class="text-red-500 text-sm h-4 block"
+            ></span>
+          </div>
+          <div class="w-full">
+            <label for="lastname" class="">Nom</label>
+            <input
+              type="text"
+              name="lastname"
+              id="lastname"
+              placeholder="Doe"
+              required
+              class="w-full"
+            />
+            <span id="lastname-error" class="text-red-500 text-sm h-4 block"
+            ></span>
+          </div>
+        </div>
+
+        <div class="flex flex-col">
+          <label for="email" class="">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="jane.doe@email.com"
+            required
+            class="lg:w-[80%]"
+          />
+          <span id="email-error" class="text-red-500 text-sm h-4 block"></span>
+        </div>
+
+        <div class="flex flex-col mb-4">
+          <label for="message" class="">Votre message</label>
+          <textarea
+            name="message"
+            id="message"
+            rows="4"
+            placeholder="Décrivez votre projet et vos besoins ici..."
+            required
+            class="resize-none w-full lg:w-[80%]"></textarea>
+          <span id="message-error" class="text-red-500 text-sm h-4 block"
+          ></span>
+        </div>
+        <button
+          type="submit"
+          id="submit-btn"
+          class="bg-[#ec825b] self-center lg:self-start py-4 px-8 w-fit text-white cursor-pointer hover:bg-transparent hover:text-[#ec825b] border border-[#ec825b] transition-all duration-300"
+        >
+          Envoyer
+        </button>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. Sélection des éléments du DOM
+    const form = document.querySelector("#contact-form");
+    const submitBtn = document.querySelector("#submit-btn"); // On sélectionne le bouton
+    const firstNameInput = document.querySelector("#firstname");
+    const lastNameInput = document.querySelector("#lastname");
+    const emailInput = document.querySelector("#email");
+    const messageInput = document.querySelector("#message");
+
+    // 2. Fonction pour afficher une erreur
+    const showError = (input, message) => {
+      const errorElement = document.querySelector(`#${input.id}-error`);
+      input.classList.add("border-red-500", "border-2");
+      errorElement.textContent = message;
+    };
+
+    // 3. Fonction pour effacer une erreur
+    const clearError = (input) => {
+      const errorElement = document.querySelector(`#${input.id}-error`);
+      input.classList.remove("border-red-500", "border-2");
+      errorElement.textContent = "";
+    };
+
+    // 4. Fonction de validation de l'email
+    const validateEmail = (email) => {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(String(email).toLowerCase());
+    };
+
+    // 5. Écouteur d'événement sur la soumission du formulaire
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      let isFormValid = true;
+
+      // --- VALIDATION DES CHAMPS (inchangée) ---
+      if (firstNameInput.value.trim() === "") {
+        showError(firstNameInput, "Le prénom est requis.");
+        isFormValid = false;
+      } else {
+        clearError(firstNameInput);
+      }
+      if (lastNameInput.value.trim() === "") {
+        showError(lastNameInput, "Le nom est requis.");
+        isFormValid = false;
+      } else {
+        clearError(lastNameInput);
+      }
+      if (emailInput.value.trim() === "") {
+        showError(emailInput, "L'adresse email est requise.");
+        isFormValid = false;
+      } else if (!validateEmail(emailInput.value)) {
+        showError(emailInput, "Le format de l'email est invalide.");
+        isFormValid = false;
+      } else {
+        clearError(emailInput);
+      }
+      if (messageInput.value.trim() === "") {
+        showError(messageInput, "Le message ne peut pas être vide.");
+        isFormValid = false;
+      } else {
+        clearError(messageInput);
+      }
+
+      // --- SOUMISSION DU FORMULAIRE (modifiée) ---
+      if (isFormValid) {
+        // NOUVEAU : On désactive le bouton et on change son texte
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Envoi en cours...";
+        submitBtn.classList.add("opacity-50", "cursor-not-allowed"); // Style pour le bouton désactivé
+
+        // NOUVEAU : On simule un temps de latence (ex: 2 secondes)
+        setTimeout(() => {
+          console.log("Le formulaire est valide et prêt à être envoyé !");
+
+          // NOUVEAU : On vide les champs du formulaire
+          form.reset(); // Méthode simple pour vider tous les champs
+
+          // NOUVEAU : On réactive le bouton et on remet son texte d'origine
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Envoyer";
+          submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
+
+          // On affiche le message de succès
+          alert("Formulaire envoyé avec succès !");
+
+          // Si vous utilisiez form.submit(), vous le mettriez ici.
+        }, 2000); // 2000 millisecondes = 2 secondes
+      } else {
+        console.log("Le formulaire contient des erreurs.");
+      }
+    });
+
+    // Optionnel : validation en temps réel (inchangée)
+    [firstNameInput, lastNameInput, emailInput, messageInput].forEach(
+      (input) => {
+        input.addEventListener("blur", () => {
+          if (input.value.trim() !== "") {
+            if (input.type === "email" && validateEmail(input.value)) {
+              clearError(input);
+            } else if (input.type !== "email") {
+              clearError(input);
+            }
+          }
+        });
+      }
+    );
+  });
+</script>

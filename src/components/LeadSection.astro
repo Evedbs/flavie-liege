@@ -1,0 +1,39 @@
+---
+import { Image } from "astro:assets";
+import Button from "./Button.astro";
+
+const { leadSectionObject } = Astro.props;
+---
+
+<section
+  class="bg-[#edf1f7] w-screen lg:h-screen flex flex-col lg:flex-row pb-8 lg:pb-0"
+>
+  <div class="w-full lg:w-1/2">
+    <Image
+      src={leadSectionObject.image}
+      alt={""}
+      class={`w-full h-[25vh] lg:h-full object-center object-cover`}
+    />
+  </div>
+  <div
+    class="w-full lg:w-1/2 flex flex-col justify-center items-center lg:items-start px-8 gap-4"
+  >
+    <h2
+      class="text-[#ec825b] lg:text-4xl text-2xl text-center lg:text-start pt-4 lg:pt-0"
+    >
+      {leadSectionObject.title}
+    </h2>
+    <div>
+      {
+        leadSectionObject.paragraphs.map((p: string) => {
+          return <p class="text-center lg:text-start">{p}</p>;
+        })
+      }
+    </div>
+    <Button
+      href={leadSectionObject.href}
+      label={leadSectionObject.label}
+      className={`self-center lg:self-start`}
+    />
+  </div>
+</section>

@@ -1,0 +1,118 @@
+---
+import LeadSection from "../components/LeadSection.astro";
+import Layout from "../layouts/Layout.astro";
+import image from "../assets/first_image_home.jpg";
+import service from "../assets/stat_2.svg";
+import image1 from "../assets/service_1.svg";
+import image2 from "../assets/service_2.svg";
+import image3 from "../assets/service_3.svg";
+import image4 from "../assets/service_4.svg";
+import ServiceSection from "../components/ServiceSection.astro";
+import ContactCTA from "../components/ContactCTA.astro";
+
+const leadSectionObjectData = {
+  label: "Discutons de votre projet",
+  href: "/contact",
+  title: `Des solutions sur mesure pour que votre projet marque les esprits.`,
+  image: image,
+  paragraphs: [
+    `Votre projet est unique. Votre communication doit l'être aussi. Que vous ayez besoin de définir une stratégie claire, de faire de votre événement une réussite mémorable ou de créer des contenus qui fédèrent votre communauté, je construis avec vous un accompagnement sur mesure. Mon objectif : transformer vos ambitions en résultats concrets et visibles.`,
+  ],
+};
+
+const serviceSectionData1 = [
+  {
+    title: `1. Conseil & Stratégie Digitale`,
+    image: image1,
+    goal: `Définir le bon cap pour atteindre vos objectifs.`,
+    target: `Les créateurs de projet, les entreprises en repositionnement ou ceux qui souhaitent structurer leur communication pour un impact maximal.`,
+    paragraph: `Une communication réussie commence par une stratégie solide. Je vous accompagne pour transformer vos idées en un plan d'action concret. Nous analysons ensemble votre marché, vos valeurs et vos cibles pour définir le bon message, le bon canal et le bon moment pour communiquer.`,
+    list: [
+      `Audit complet de votre présence digitale et de votre environnement.`,
+      `Élaboration de votre stratégie de contenu pour asseoir votre expertise.`,
+      `Définition de votre identité de marque (valeurs, mission, charte graphique).`,
+      `Analyse et définition de votre clientèle cible (persona).`,
+      `Création de piliers de contenu et d'un calendrier éditorial personnalisé.`,
+    ],
+  },
+
+  {
+    title: `2. Réseaux Sociaux & Community Management`,
+    image: image2,
+    goal: `Toucher votre cible, au bon moment et au bon endroit.`,
+    target: `Les entreprises, artisans ou associations souhaitant développer leur notoriété, engager leur audience et convertir leurs abonnés en clients.`,
+    paragraph: `Soyez influent. Je gère votre présence en ligne pour faire de vos plateformes de véritables outils de croissance. Que ce soit en totale autonomie ou en collaboration avec vous, nous créons du contenu pertinent pour faire grandir et animer votre communauté.`,
+    list: [
+      `Gestion complète de vos comptes (Facebook, Instagram, LinkedIn...).`,
+      `Création et planification de contenus pertinents et engageants.`,
+      `Animation de votre communauté (gestion des commentaires, jeux-concours...).`,
+      `Gestion de campagnes publicitaires ciblées pour accélérer votre croissance.`,
+      `Reporting et analyse des performances pour ajuster la stratégie.`,
+    ],
+  },
+];
+
+const serviceSectionData2 = [
+  {
+    title: `3. Création de Contenu & Identité Visuelle`,
+    image: image3,
+
+    goal: `Marquer les esprits avec une identité qui vous ressemble.`,
+    target: `Les marques ayant besoin d'une image professionnelle, de supports de communication percutants ou de contenus visuels de qualité.`,
+    paragraph: `Votre identité visuelle est la première impression que vous laissez. Je mets ma créativité au service de votre projet pour concevoir une image de marque forte et cohérente, sur le web comme sur papier. Des visuels attractifs qui traduisent vos valeurs et captent l'attention.`,
+    list: [
+      `Identité Visuelle : Création de logo, définition de charte graphique et bannières.`,
+      `Supports Numériques : Conception de visuels pour réseaux sociaux (posts, stories, réels).`,
+      `Supports Imprimés (Print) : Création d'affiches, flyers, plaquettes et cartes de visite.`,
+      `Photo & Vidéo : Réalisation de shootings photo et montage de vidéos courtes pour le web.`,
+      `Rédaction & Storytelling : Écriture de textes percutants pour vos supports de communication.`,
+    ],
+  },
+  {
+    title: `4. Création de Site Internet`,
+    image: image4,
+    goal: `Rendre votre projet accessible et professionnel en ligne.`,
+    target: `Les professionnels, artisans et TPE/PME qui souhaitent créer leur première vitrine digitale ou moderniser un site existant.`,
+    paragraph: `Aujourd'hui, votre site internet est votre plus puissant outil commercial, le véritable ambassadeur de votre marque en ligne. Je vous accompagne pour concevoir une plateforme à votre image : esthétique pour séduire, intuitive pour guider, et efficace pour convertir. L'objectif est de créer un espace professionnel qui met en valeur votre savoir-faire et qui inspire une confiance immédiate à vos futurs clients.`,
+    list: [
+      `Création ou refonte complète de votre site vitrine.`,
+      `Conception d'un design sur mesure, ergonomique et visuel (UI/UX).`,
+      `Optimisation pour le responsive design (affichage parfait sur mobile et tablette).`,
+      `Intégration de vos contenus pour un site clé en main.`,
+      `Optimisation pour le référencement naturel (SEO) afin d'améliorer votre visibilité sur Google.`,
+    ],
+  },
+];
+---
+
+<Layout>
+  <LeadSection leadSectionObject={leadSectionObjectData} />
+  <section class="flex flex-col gap-4 items-center py-16">
+    <h2 class="text-2xl lg:text-4xl paragraph text-center">
+      Quatre piliers pour votre réussite
+    </h2>
+    <p class="paragraph text-center mb-8">
+      De la stratégie à l'action, je vous accompagne sur quatre domaines
+      d'expertise complémentaires pour donner vie à vos ambitions.
+    </p>
+    <div class="flex flex-col lg:flex-row gap-8 justify-center flex-wrap">
+      {
+        serviceSectionData1.map((service) => {
+          return <ServiceSection serviceSectionData={service} />;
+        })
+      }
+      {
+        serviceSectionData2.map((service) => {
+          return <ServiceSection serviceSectionData={service} />;
+        })
+      }
+    </div>
+  </section>
+  <ContactCTA
+    containerClasses="bg-[#edf1f7]"
+    href="/contact"
+    label="Contactez-moi"
+    title="Votre projet ne rentre dans aucune case ? C'est parfait."
+    sentence="Ces prestations sont des points de départ. La meilleure stratégie sera toujours celle que nous construirons ensemble. Discutons de vos besoins spécifiques pour définir l'accompagnement qui vous mènera au succès."
+  />
+</Layout>

@@ -1,0 +1,103 @@
+---
+// src/components/FluidBackground.astro (Green/White Palette - No Hover Effect)
+---
+
+<canvas class="w-screen h-screen" id="fluid-canvas"></canvas>
+
+<script>
+  import * as THREE from "three";
+
+  // --- SHADER CODE ---
+  const vertexShader = `
+    void main() {
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `;
+
+  const fragmentShader = `
+    uniform vec2 uResolution;
+    uniform float uTime;
+
+    float random (vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); }
+    float noise (vec2 st) {
+        vec2 i = floor(st); vec2 f = fract(st);
+        float a = random(i); float b = random(i + vec2(1.0, 0.0));
+        float c = random(i + vec2(0.0, 1.0)); float d = random(i + vec2(1.0, 1.0));
+        vec2 u = f*f*(3.0-2.0*f);
+        return mix(a, b, u.x) + (c - a)* u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+    }
+    float fbm (vec2 st) {
+        float value = 0.0; float amplitude = .5;
+        for (int i = 0; i < 6; i++) { value += amplitude * noise(st); st *= 2.; amplitude *= .5; }
+        return value;
+    }
+
+    void main() {
+      vec2 st = gl_FragCoord.xy / uResolution.xy;
+      
+      vec2 noiseSt = st;
+      noiseSt.x *= uResolution.x / uResolution.y;
+
+      vec2 motion = vec2(fbm(noiseSt + uTime * 0.1), fbm(noiseSt + uTime * 0.05));
+      
+      vec2 distortedSt = noiseSt + motion; 
+      
+      float colorValue = fbm(distortedSt * 3.0);
+
+      // --- COLOR CHANGE IS HERE ---
+      // Your hex colors converted to vec3(r, g, b)
+      vec3 color1 = vec3(0.212, 0.506, 0.424); // #36816c
+      vec3 color2 = vec3(0.961, 0.898, 0.835);
+      vec3 color = mix(color1, color2, colorValue);
+      // --- END OF COLOR CHANGE ---
+      
+      gl_FragColor = vec4(color, 1.0);
+    }
+  `;
+
+  // --- THREE.JS SETUP ---
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const canvas = document.getElementById("fluid-canvas") as HTMLCanvasElement;
+  const renderer = new THREE.WebGLRenderer({ canvas, antalias: true });
+
+  const dpr = Math.min(window.devicePixelRatio, 2);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(dpr);
+
+  const geometry = new THREE.PlaneGeometry(2, 2);
+  const material = new THREE.ShaderMaterial({
+    vertexShader,
+    fragmentShader,
+    uniforms: {
+      uTime: { value: 0 },
+      uResolution: {
+        value: new THREE.Vector2(
+          window.innerWidth * dpr,
+          window.innerHeight * dpr
+        ),
+      },
+    },
+  });
+  const plane = new THREE.Mesh(geometry, material);
+  scene.add(plane);
+
+  // --- ANIMATION & RESIZE ---
+  const clock = new THREE.Clock();
+  const tick = () => {
+    material.uniforms.uTime.value = clock.getElapsedTime();
+    renderer.render(scene, camera);
+    requestAnimationFrame(tick);
+  };
+  tick();
+
+  window.addEventListener("resize", () => {
+    const newDpr = Math.min(window.devicePixelRatio, 2);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(newDpr);
+    material.uniforms.uResolution.value.set(
+      window.innerWidth * newDpr,
+      window.innerHeight * newDpr
+    );
+  });
+</script>

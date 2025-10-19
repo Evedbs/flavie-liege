@@ -1,0 +1,193 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import firstImage from "../assets/flavie_2.jpg";
+import partner1 from "../assets/partner_1.svg";
+import partner2 from "../assets/partner_2.svg";
+import partner3 from "../assets/partner_3.svg";
+import partner4 from "../assets/partner_4.svg";
+import partner5 from "../assets/partner_5.svg";
+import partner6 from "../assets/partner_6.svg";
+import partner7 from "../assets/partner_7.svg";
+import partner8 from "../assets/partner_8.svg";
+import partner9 from "../assets/partner_9.svg";
+import partner10 from "../assets/partner_10.svg";
+import partner11 from "../assets/partner_11.svg";
+import insightAbout from "../assets/insight_about.jpg";
+import stat1 from "../assets/stat_1.svg";
+import stat2 from "../assets/stat_2.svg";
+import stat3 from "../assets/stat_3.svg";
+import LeadSection from "../components/LeadSection.astro";
+import ServicesInsight from "../components/ServicesInsight.astro";
+import ContactCTA from "../components/ContactCTA.astro";
+
+const contactCTAData = {
+  href: "/contact",
+  label: "Contactez-moi",
+  title: `Prêt à jeter l'ancre ?`,
+  sentence: `Un projet en tête, une question ou simplement l'envie d'échanger ?
+      Contactez-moi pour que nous puissions tracer ensemble votre nouvelle
+      route.`,
+};
+
+const statArray = [
+  {
+    image: stat1,
+    title: "Près de 500 Bateaux",
+    subtitle:
+      "Gérer la communication et l'information pour la plus grande flotte de l'histoire de la course.",
+  },
+  {
+    image: stat2,
+    title: "Des centaines de Journalistes",
+    subtitle:
+      "Orchestrer les relations presse pour assurer une couverture médiatique mondiale.",
+  },
+  {
+    image: stat3,
+    title: "+40 Nationalités",
+    subtitle:
+      "Adapter le message pour une audience internationale et multiculturelle.",
+  },
+];
+
+const mockArray = [
+  partner1,
+  partner2,
+  partner3,
+  partner4,
+  partner5,
+  partner6,
+  partner7,
+  partner8,
+  partner9,
+  partner10,
+  partner11,
+];
+
+const mockArray2 = [
+  {
+    src: firstImage,
+    classes: "w-[30%]",
+  },
+  {
+    src: firstImage,
+    classes: "w-[30%]",
+  },
+  {
+    src: firstImage,
+    classes: "w-[30%]",
+  },
+  {
+    src: firstImage,
+    classes: "w-[45%]",
+  },
+  {
+    src: firstImage,
+    classes: "w-[45%]",
+  },
+  {
+    src: firstImage,
+    classes: "w-[30%]",
+  },
+  {
+    src: firstImage,
+    classes: "w-[30%]",
+  },
+  {
+    src: firstImage,
+    classes: "w-[30%]",
+  },
+];
+
+const leadSectionList = [
+  {
+    image: firstImage,
+    href: "/services",
+    label: "Découvrir mes prestations",
+    title: "Votre communication, mon cap.",
+    paragraphs: [
+      `Passionnée par l'univers de la communication et forte d'une expérience
+          au cœur d'événements d'envergure, je mets aujourd'hui ma créativité et
+          mon expertise au service de votre projet. En tant que communicante
+          indépendante, je vous propose des solutions sur mesure pour hisser
+          haut vos couleurs et atteindre vos objectifs.`,
+    ],
+  },
+  {
+    image: insightAbout,
+    title: "Une communicante passionnée à la barre de vos projets.",
+    label: "En savoir plus",
+    href: "/a-propos",
+    paragraphs: [
+      `Forte d'une expérience au cœur d'événements internationaux comme la
+          Rolex Fastnet Race, j'ai développé une expertise en gestion de projet
+          et en stratégie de communication. Aujourd'hui indépendante, j'allie
+          cette rigueur à une approche créative et solaire pour raconter votre
+          histoire et atteindre vos objectifs.`,
+    ],
+  },
+];
+---
+
+<Layout>
+  <main class="">
+    <!-- <FluidBackground client:load /> -->
+    <LeadSection leadSectionObject={leadSectionList[0]} />
+    <section class="w-full flex flex-col items-center py-8 mt-8">
+      <h2 class="text-center text-2xl lg:text-4xl mb-4">
+        Un impact mesurable.
+      </h2>
+      <p class="paragraph text-center">
+        Mon rôle de Responsable Communication pour l'arrivée de la Rolex Fastnet
+        Race m'a permis de naviguer sur un projet d'envergure. Ces chiffres
+        témoignent de l'échelle des défis que j'aime relever.
+      </p>
+      <div class="flex flex-col lg:flex-row lg:gap-8 mt-8">
+        {
+          statArray.map((stat) => {
+            return (
+              <div class="w-full lg:w-[25vw] flex flex-col items-center text-center my-8">
+                <Image
+                  src={stat.image}
+                  alt={``}
+                  class={`h-16 w-fit object-cover mb-4`}
+                />
+                <p class="mb-2 text-2xl">{stat.title}</p>
+                <p>{stat.subtitle}</p>
+              </div>
+            );
+          })
+        }
+      </div>
+    </section>
+    <section
+      class="bg-[#222222] px-8 py-16 w-full flex flex-col items-center gap-8"
+    >
+      <h2 class="text-2xl text-center lg:text-4xl text-[#edf1f7]">
+        Ils me font confiance :
+      </h2>
+      <div class="flex gap-16 overflow-x-auto hide-scrollbar">
+        {
+          mockArray.map((image) => {
+            return (
+              <Image
+                src={image}
+                alt={``}
+                class={`h-4 lg:h-8 w-auto flex-shrink-0`}
+              />
+            );
+          })
+        }
+      </div>
+    </section>
+    <ServicesInsight />
+    <ContactCTA
+      href={contactCTAData.href}
+      label={contactCTAData.label}
+      title={contactCTAData.title}
+      sentence={contactCTAData.sentence}
+    />
+    <LeadSection leadSectionObject={leadSectionList[1]} />
+  </main>
+</Layout>

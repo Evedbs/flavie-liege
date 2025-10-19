@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+.paragraph {
+  @apply w-[90%] lg:w-150;
+}
+
+.navLink {
+  @apply px-8 cursor-pointer hover:bg-[#edf1f7] hover:text-[#222222] transition-all duration-300 h-full flex justify-center items-center;
+}
+
+input,
+textarea {
+  @apply border-[#222222]/25 focus:border-[#222222]/75 focus:ring-[#222222]/75 border mt-1 p-2;
+}
+
+.footerLink {
+  @apply cursor-pointer transition-opacity duration-300 hover:opacity-50 capitalize;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hover-opacity {
+  @apply hover:opacity-50 transition-opacity duration-300;
+}

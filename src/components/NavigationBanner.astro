@@ -1,0 +1,103 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo.svg";
+---
+
+<nav
+  class="bg-[#222222] relative flex items-center justify-between h-20 px-8 relative z-50"
+>
+  <a href="/">
+    <Image
+      src={logo}
+      alt="Logo du site"
+      class="w-12 lg:w-16 object-cover cursor-pointer hover:opacity-50 transition-opacity duration-300"
+    />
+  </a>
+
+  <ul class="text-[#edf1f7] hidden md:flex items-center justify-end h-full">
+    <li class="h-full">
+      <a class="navLink" href="/">Accueil</a>
+    </li>
+    <li class="h-full">
+      <a class="navLink" href="/a-propos">About</a>
+    </li>
+    <li class="h-full">
+      <a class="navLink" href="/services">Services</a>
+    </li>
+    <li class="h-full">
+      <a class="navLink" href="/contact">Contact</a>
+    </li>
+  </ul>
+
+  <button
+    id="menu-btn"
+    class="cursor-pointer hover:opacity-50 transition-opacity duration-300 block md:hidden focus:outline-none"
+  >
+    <svg
+      id="hamburger-icon"
+      class="w-12 h-12 text-[#edf1f7]"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1"
+        d="M4 6h16M4 12h16m-7 6h7"></path>
+    </svg>
+    <svg
+      id="close-icon"
+      class="w-12 h-12 text-[#edf1f7] hidden absolute right-8 top-4"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1"
+        d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
+
+  <div id="mobile-menu" class="hidden md:hidden">
+    <ul
+      class="absolute flex flex-col pb-8 items-center left-0 top-20 w-full bg-[#222222] text-[#edf1f7]"
+    >
+      <li>
+        <a class="navLink w-full justify-center py-4" href="/">Accueil</a>
+      </li>
+      <li>
+        <a class="navLink w-full justify-center py-4" href="/a-propos">About</a>
+      </li>
+      <li>
+        <a class="navLink w-full justify-center py-4" href="/services"
+          >Services</a
+        >
+      </li>
+      <li>
+        <a class="navLink w-full justify-center py-4" href="/contact">Contact</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  // On récupère les éléments du DOM
+  const menuBtn = document.getElementById("menu-btn")!;
+  const mobileMenu = document.getElementById("mobile-menu")!;
+  const hamburgerIcon = document.getElementById("hamburger-icon")!;
+  const closeIcon = document.getElementById("close-icon")!;
+
+  // On ajoute un écouteur d'événement au clic sur le bouton
+  menuBtn.addEventListener("click", () => {
+    // On alterne la classe 'hidden' pour afficher/masquer le menu et les icônes
+    mobileMenu.classList.toggle("hidden");
+    hamburgerIcon.classList.toggle("hidden");
+    closeIcon.classList.toggle("hidden");
+  });
+</script>
