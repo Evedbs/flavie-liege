@@ -8,7 +8,7 @@ import ContactCTA from "../components/ContactCTA.astro";
 
 const leadSectionObjectData = {
   image: image,
-  href: "/services",
+  href: "/prestations",
   label: "Voir mes prestations",
   title:
     "Flavie Liège : Stratège en communication, architecte de vos événements.",
@@ -50,7 +50,10 @@ const contactCTAData = {
 };
 ---
 
-<Layout>
+<Layout
+  title="À Propos - Flavie Liège | Parcours en Communication & Sport"
+  description="Découvrez mon parcours : un Master en Management du Sport, des expériences clés comme la Rolex Fastnet Race et une passion pour rendre les projets uniques. Voici l'histoire derrière EFEL COMMUNICATION."
+>
   <LeadSection leadSectionObject={leadSectionObjectData} />
   <section class="w-full flex flex-col items-center py-16">
     <h2 class="text-2xl lg:text-4xl pb-16 text-center paragraph">
